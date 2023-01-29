@@ -33,18 +33,29 @@ function App() {
         setSearch(term)
     }
 
-    return (
-        <div>
-            <SearchBar handleSearch = {handleSearch}/>
-            {message}
-            <Gallery data={data} />
-            <AlbumView />
-            <ArtistView />
-        </div>
-    );
+	return (
+		<div>
+		{message}
+			<Router>
+				<Routes>
+					<Route path="/" element={
+						<Fragment>
+							<SearchBar handleSearch = {handleSearch}/>
+							<Gallery data={data} />
+						</Fragment>
+					} />
+					<Route path="/album/:id" element={<AlbumView />} />
+					<Route path="/artist/:id" element={<ArtistView />} />
+				</Routes>
+			</Router>
+		</div>
+	)
+	
 }
 
 export default App;
+
+
 
 
 

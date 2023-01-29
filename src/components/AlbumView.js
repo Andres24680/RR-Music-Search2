@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react'; 
+import { useState, useEffect } from 'react'
 
-function AlbumView () {
-const [albumData, setAlbumData] = useState([])
+function AlbumView() {
+    const [ albumData, setAlbumData ] = useState([])
 
-return (
-    <div>
-        <p>Artist Data Goes Here!</p>
-    </div>
+    return (
+        <div>
+            <p>Album Data Goes Here!</p>
+        </div>
     )
 }
 

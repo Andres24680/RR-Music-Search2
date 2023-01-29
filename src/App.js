@@ -4,6 +4,7 @@ import Gallery from './components/Gallery'
 import SearchBar from './components/SearchBar'
 import AlbumView from './components/AlbumView'
 import ArtistView from './components/ArtistView'
+import GalleryItem from './components/GalleryItem'
 
 function App() {
     let [search, setSearch] = useState('')

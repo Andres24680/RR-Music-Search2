@@ -1,6 +1,6 @@
 // GalleryItem.js
 import { useState } from 'react' 
-import {link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function GalleryItem(props){
     let [view, setView] = useState(false)
@@ -32,6 +32,7 @@ function GalleryItem(props){
         )
     }
 
+    
     const detailView = () => {
         return (
             <div style={detailStyle}>
@@ -51,6 +52,7 @@ function GalleryItem(props){
             </div>
         )
     }
+    
 }
 
 export default GalleryItem

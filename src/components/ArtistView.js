@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link, useHistory } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Spinner from './Spinner'
 
 const ArtistView = () => {
     const { id } = useParams()
-    const history = useHistory()
+    const history = useNavigate()
     const [ artistData, setArtistData ] = useState([])
     
     useEffect(() => {

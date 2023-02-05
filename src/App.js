@@ -1,30 +1,35 @@
+
+
 import './App.css';
-import { useState, Suspense, useRef } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import ArtistView from './components/ArtistView'
-import AlbumView from './components/AlbumView'
+import { useState, Suspense, useEffect } from 'react'
 import Gallery from './components/Gallery'
 import SearchBar from './components/SearchBar'
 import Spinner from './components/Spinner'
-import { DataContext } from './context/DataContext'
-import { SearchContext } from './context/SearchContext'
 import { createResource as fetchData } from './helper'
 
-const App = () => {
-  let searchInput = useRef('')
-  let [data, setData] = useState(null)
+function App() {
+  let [searchTerm, setSearchTerm] = useState('')
   let [message, setMessage] = useState('Search for Music!')
+  let [data, setData] = useState(null)
+
+  useEffect(() => {
+    if (searchTerm) {
+      document.title=`${searchTerm} Music`
+      console.log(fetchData(searchTerm))
+      setData(fetchData(searchTerm))
+  }
+  }, [searchTerm])
 
   const handleSearch = (e, term) => {
     e.preventDefault()
-    setData(fetchData(term, 'main'))
+    setSearchTerm(term)
   }
 
   const renderGallery = () => {
-    if(data) {
+    if(data){
       return (
         <Suspense fallback={<Spinner />}>
-          <Gallery />
+          <Gallery data={data} />
         </Suspense>
       )
     }
@@ -32,23 +37,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <SearchBar handleSearch={handleSearch} />
       {message}
-      <Router>
-        <Route exact path={'/'}>
-          <SearchContext.Provider value={{term: searchInput, handleSearch: handleSearch}}>
-            <SearchBar />
-          </SearchContext.Provider>
-            <DataContext.Provider value={data}>
-              {renderGallery()}
-            </DataContext.Provider>
-        </Route>
-        <Route path="/album/:id">
-          <AlbumView />
-        </Route>
-        <Route path="/artist/:id">
-          <ArtistView />
-        </Route>
-      </Router>
+      {renderGallery()}
     </div>
   );
 }
